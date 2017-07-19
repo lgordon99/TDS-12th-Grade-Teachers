@@ -26,7 +26,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     let searchTF = UITextField()
     
     //MARK: Impermanent Variable Declarations
-    var teachers: [String] = []
+    var teachers: [String] = ["Mr. Lindow", "Ms. Spalding", "Mr. Thomas", "Mr. Tarbath", "Ms. LiCalsi", "Dr. Henry", "Mr. Moonga"]
     var day = "A"
     var period = "1"
     var time = "A1"
@@ -46,14 +46,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.teacherPicker.dataSource = self
         
         availabilityLabel.isHidden = true
-        
+    
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         
         view.addGestureRecognizer(tap)
         
         //MARK: Title Label
         titleLabel.isHidden = false
-        titleLabel.frame = CGRect(x: screenWidth/9, y: screenHeight / 45, width: 7 * screenWidth/9, height: 0.07 * screenHeight)
+        titleLabel.frame = CGRect(x: screenWidth/9, y: screenHeight / 30, width: 7 * screenWidth/9, height: 0.07 * screenHeight)
         titleLabel.backgroundColor = UIColor.red
         titleLabel.text = "12th Grade Teachers"
         titleLabel.textAlignment = NSTextAlignment.center
@@ -66,18 +66,86 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         view.addSubview(titleLabel)
         
         //MARK: Day Label
+        dayLabel.isHidden = false
+        dayLabel.frame = CGRect(x: 2 * screenWidth/30, y: 3 * screenHeight / 20, width: 6 * screenWidth/30, height: 0.06 * screenHeight)
+        dayLabel.backgroundColor = UIColor.clear
+        dayLabel.text = "Day: A"
+        dayLabel.textAlignment = NSTextAlignment.left
+        dayLabel.highlightedTextColor = UIColor.gray
+        dayLabel.isHighlighted = true
+        dayLabel.layer.masksToBounds = true
+        dayLabel.layer.cornerRadius = 0.1 * dayLabel.bounds.size.width
+        dayLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 0.05 * screenWidth)
+        
+        view.addSubview(dayLabel)
+        
+        //MARK: Day Slider
+        daySlider.isHidden = false
+        daySlider.frame = CGRect(x: 10 * screenWidth/30, y: 3 * screenHeight/20, width: screenWidth - 2 * screenWidth/30 - 10 * screenWidth/30, height: 0.06 * screenHeight)
+        daySlider.value = 1
+        daySlider.minimumValue = 1
+        daySlider.maximumValue = 10
+        daySlider.minimumTrackTintColor = UIColor.blue
+        daySlider.maximumTrackTintColor = UIColor.magenta
+        daySlider.thumbTintColor = UIColor.white
+        daySlider.isContinuous = true
+        daySlider.isEnabled = true
+        daySlider.addTarget(self, action: #selector(daySliderChanged(_sender:)), for: .valueChanged)
+        
+        view.addSubview(daySlider)
         
         //MARK: Period Label
+        periodLabel.isHidden = false
+        periodLabel.frame = CGRect(x: 2 * screenWidth/30, y: 5 * screenHeight / 20, width: 9 * screenWidth/30, height: 0.06 * screenHeight)
+        periodLabel.backgroundColor = UIColor.clear
+        periodLabel.text = "Period: 1"
+        periodLabel.textAlignment = NSTextAlignment.left
+        periodLabel.highlightedTextColor = UIColor.gray
+        periodLabel.isHighlighted = true
+        periodLabel.layer.masksToBounds = true
+        periodLabel.layer.cornerRadius = 0.1 * periodLabel.bounds.size.width
+        periodLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 0.05 * screenWidth)
+        
+        view.addSubview(periodLabel)
+    
+        //MARK: Period Slider
+        periodSlider.isHidden = false
+        periodSlider.frame = CGRect(x: 10 * screenWidth/30, y: 5 * screenHeight/20, width: screenWidth - 2 * screenWidth/30 - 10 * screenWidth/30, height: 0.06 * screenHeight)
+        periodSlider.value = 1
+        periodSlider.minimumValue = 1
+        periodSlider.maximumValue = 7
+        periodSlider.minimumTrackTintColor = UIColor.blue
+        periodSlider.maximumTrackTintColor = UIColor.magenta
+        periodSlider.thumbTintColor = UIColor.white
+        periodSlider.isContinuous = true
+        periodSlider.isEnabled = true
+        periodSlider.addTarget(self, action: #selector(periodSliderChanged(_sender:)), for: .valueChanged)
+        
+        view.addSubview(periodSlider)
+        
+        //MARK: Search Text Field
+        searchTF.isHidden = false
+        searchTF.isEnabled = true
+        searchTF.frame = CGRect(x: 2 * screenWidth/10, y: 7 * screenHeight/20, width: 6 * screenWidth/10, height: 0.06 * screenHeight)
+        searchTF.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 0.05 * screenWidth)!])
+        searchTF.textAlignment = NSTextAlignment.center
+        searchTF.textColor = UIColor.white
+        searchTF.backgroundColor = UIColor.black
+        searchTF.layer.masksToBounds = true
+        searchTF.layer.cornerRadius = 0.1 * searchTF.bounds.size.width
+        searchTF.addTarget(self, action: #selector(searchTFAction(_sender:)), for: .editingDidEnd)
+        
+        view.addSubview(searchTF)
+        
+        //MARK: Teacher Picker
+        teacherPicker.isHidden = false
+        teacherPicker.isUserInteractionEnabled = true
+        teacherPicker.frame = CGRect(x: screenWidth/10, y: 9 * screenHeight/20, width: 8 * screenWidth/10, height: 0.3 * screenHeight)
+        
+        view.addSubview(teacherPicker)
         
         //MARK: Availability Label
         
-        //MARK: Day Slider
-        
-        //MARK: Period Slider
-        
-        //MARK: Teacher Picker
-        
-        //MARK: Search Text Field
     }
     
     func dismissKeyboard() {
@@ -87,15 +155,19 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func daySliderChanged(_sender: AnyObject){
         let currentValue = Int(daySlider.value)
         let numbersToLetters: [Int: String] = [1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 9: "I", 10: "J"]
+        
         dayLabel.text = "Day: \(numbersToLetters[currentValue]!)"
         day = numbersToLetters[currentValue]!
+        
         updateText()
     }
     
     func periodSliderChanged(_sender: AnyObject){
         let currentValue = Int(periodSlider.value)
+        
         periodLabel.text = "Period: \(currentValue)"
         period = String(currentValue)
+        
         updateText()
     }
     
@@ -125,7 +197,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        return NSAttributedString(string: teachers[row], attributes: [NSFontAttributeName:UIFont(name: "Avenir", size: 15.0)!,NSForegroundColorAttributeName:UIColor.init(red: 0, green: 255, blue: 255, alpha: 1.0)])
+        return NSAttributedString(string: teachers[row], attributes: [NSFontAttributeName:UIFont(name: "Avenir", size: 15.0)!,NSForegroundColorAttributeName:UIColor.cyan])
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
