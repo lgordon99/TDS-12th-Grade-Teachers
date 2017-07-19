@@ -12,6 +12,7 @@
 		745A80251F1F0D210011152A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 745A80231F1F0D210011152A /* Main.storyboard */; };
 		745A80271F1F0D210011152A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 745A80261F1F0D210011152A /* Assets.xcassets */; };
 		745A802A1F1F0D210011152A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 745A80281F1F0D210011152A /* LaunchScreen.storyboard */; };
+		745A80341F1F0EB30011152A /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A80331F1F0EB30011152A /* GradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		745A80261F1F0D210011152A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		745A80291F1F0D210011152A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		745A802B1F1F0D210011152A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		745A80331F1F0EB30011152A /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				745A801F1F1F0D210011152A /* AppDelegate.swift */,
 				745A80211F1F0D210011152A /* ViewController.swift */,
+				745A80331F1F0EB30011152A /* GradientView.swift */,
 				745A80231F1F0D210011152A /* Main.storyboard */,
 				745A80261F1F0D210011152A /* Assets.xcassets */,
 				745A80281F1F0D210011152A /* LaunchScreen.storyboard */,
@@ -139,6 +142,7 @@
 			files = (
 				745A80221F1F0D210011152A /* ViewController.swift in Sources */,
 				745A80201F1F0D210011152A /* AppDelegate.swift in Sources */,
+				745A80341F1F0EB30011152A /* GradientView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
