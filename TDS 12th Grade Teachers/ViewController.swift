@@ -26,7 +26,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     let searchTF = UITextField()
     
     //MARK: Impermanent Variable Declarations
-    var teachers: [String] = ["Mr. Lindow", "Ms. Spalding", "Mr. Thomas", "Mr. Tarbath", "Ms. LiCalsi", "Dr. Henry", "Mr. Moonga"]
+    var teachers: [String] = ["Ms. Lubman", "Mr. Lindow", "Ms. Spalding", "Ms. McCutcheon", "Mr. McClintock", "Mr. Tarbath", "Ms. LiCalsi", "Ms. Henry", "Mr. Raisher"]
     var day = "A"
     var period = "1"
     var time = "A1"
@@ -35,6 +35,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var screenHeight: CGFloat = 0
     
     //MARK: Permanent Variable Declarations
+    let lubman: [String] = ["A2", "A4", "A5", "A7", "B1", "B5", "B7", "C4", "D1", "D2", "D4", "D5", "D7", "E1", "E2", "E5", "F2", "F7", "G1", "G2", "G5", "G6", "H2", "H5", "I1", "I5", "I7", "J4", "J7","A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"]
+    let lindow: [String] = ["A6", "A7", "B1", "B2", "B4", "C2", "C4", "C6", "D6", "D7", "E6", "E7", "F1", "F2", "F4", "F5", "G5", "G6", "G7", "H1", "H7", "I1", "I2", "I4", "J2", "J4", "J6","A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"]
+    let spalding: [String] = ["A1", "A7", "B1", "B2", "B4", "B6", "C4", "C5", "C6", "C7", "D1", "D7", "E4", "E6", "E7", "F2", "F4", "F5", "F6", "F7", "G6", "G7", "H1", "H4", "I1", "I2", "I4", "I6", "J4", "J5", "J6", "J7","A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"]
+    let mcCutcheon: [String] = ["A6", "A7", "B1", "B2", "B4", "C2", "C4", "C5", "C6", "C7", "D1", "D6", "D7", "E6", "E7", "F1", "F2", "F4", "F5", "F7", "G5", "G6", "G7", "H1", "H7", "I1", "I2", "I4", "J2", "J4", "J5", "J6", "J7","A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"]
+    let mcClintock: [String] = ["A2", "A5", "A6", "A7", "B2", "B4", "B7", "C2", "C4", "C6", "D1", "D2", "D5", "D6", "E2", "E7", "F1", "F2", "F4", "F5", "F7", "G4", "G5", "H1", "H2", "H5", "H7", "I1", "I2", "I4", "J1", "J2", "J6","A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"]
+    let tarbath: [String] = ["A1", "A2", "A5", "A7", "B2", "B5", "B6", "C1", "C5", "C7", "D1", "D2", "D5", "E1", "E4", "E5", "E6", "F4", "F5", "F6", "F7", "G1", "G4", "G7", "H2", "H4", "H6", "I2", "I5", "I6", "J1", "J5", "J7","A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"]
+    let liCalsi: [String] = ["A1", "A2", "A4", "A5", "A6", "B5", "B6", "B7", "C1", "C2", "C5", "C6", "C7", "D1", "D2", "D4", "D5", "D6", "E1", "E2", "E4", "E5", "F1", "F4", "F5", "F6", "F7", "G1", "G2", "G4", "G5", "H2", "H4", "H5", "H6", "H7", "I4", "I5", "I6", "I7", "J1", "J2", "J5", "J7"]
+    let henry: [String] = ["A4", "A6", "B1", "B4", "B5", "C1", "C2", "C6", "C7", "D4", "D6", "D7", "E1", "E5", "E6", "E7", "F1", "F5", "G1", "G2", "G5", "G6", "G7", "H1", "H6", "H7", "I4", "I5", "I7", "J2", "J4", "J5", "J6","A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"]
+    let raisher: [String] = ["A4", "A5", "A7", "B1", "B4", "B6", "C1", "C5", "D4", "D5", "D6", "D7", "E4", "E5", "E6", "F2", "F5", "F7", "G2", "G4", "G5", "G6", "G7", "H4", "H5", "H6", "I4", "I7", "J1", "J2", "J4","A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "I3", "J3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,12 +149,24 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         //MARK: Teacher Picker
         teacherPicker.isHidden = false
         teacherPicker.isUserInteractionEnabled = true
-        teacherPicker.frame = CGRect(x: screenWidth/10, y: 9 * screenHeight/20, width: 8 * screenWidth/10, height: 0.3 * screenHeight)
+        teacherPicker.frame = CGRect(x: screenWidth/10, y: 8 * screenHeight/20, width: 8 * screenWidth/10, height: 6 * screenHeight/20)
         
         view.addSubview(teacherPicker)
         
         //MARK: Availability Label
+        availabilityLabel.isHidden = false
+        availabilityLabel.frame = CGRect(x: screenWidth/10, y: 14 * screenHeight / 20, width: 8 * screenWidth/10, height: 5 * screenHeight/20)
+        availabilityLabel.backgroundColor = UIColor.blue
+        availabilityLabel.text = ""
+        availabilityLabel.textAlignment = NSTextAlignment.center
+        availabilityLabel.highlightedTextColor = UIColor.white
+        availabilityLabel.numberOfLines = 0
+        availabilityLabel.isHighlighted = true
+        availabilityLabel.layer.masksToBounds = true
+        availabilityLabel.layer.cornerRadius = 0.1 * availabilityLabel.bounds.size.width
+        availabilityLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 0.05 * screenWidth)
         
+        view.addSubview(availabilityLabel)
     }
     
     func dismissKeyboard() {
@@ -207,8 +228,91 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
     func updateText(){
         availabilityLabel.isHidden = false
-        availabilityLabel.text = "Availability"
+        availabilityLabel.text = ""
         time = day + period
+        
+        if teacher == "Ms. Lubman" {
+            for item in lubman {
+                if time == item {
+                    availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+                    break
+                } else {
+                    availabilityLabel.text = "\(teacher) is not available \(time)."
+                }
+            }
+        } else if teacher == "Mr. Lindow" {
+            for item in lindow {
+                if time == item {
+                    availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+                    break
+                } else {
+                    availabilityLabel.text = "\(teacher) is not available \(time)."
+                }
+            }
+        } else if teacher == "Ms. Spalding" {
+            for item in spalding {
+                if time == item {
+                    availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+                    break
+                } else {
+                    availabilityLabel.text = "\(teacher) is not available \(time)."
+                }
+            }
+        } else if teacher == "Ms. McCutcheon" {
+            for item in mcCutcheon {
+                if time == item {
+                    availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+                    break
+                } else {
+                    availabilityLabel.text = "\(teacher) is not available \(time)."
+                }
+            }
+        } else if teacher == "Mr. McClintock" {
+            for item in mcClintock {
+                if time == item {
+                    availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+                    break
+                } else {
+                    availabilityLabel.text = "\(teacher) is not available \(time)."
+                }
+            }
+        } else if teacher == "Mr. Tarbath" {
+            for item in tarbath {
+                if time == item {
+                    availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+                    break
+                } else {
+                    availabilityLabel.text = "\(teacher) is not available \(time)."
+                }
+            }
+        } else if teacher == "Ms. LiCalsi" {
+            for item in liCalsi {
+                if time == item {
+                    availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+                    break
+                } else {
+                    availabilityLabel.text = "\(teacher) is not available \(time)."
+                }
+            }
+        } else if teacher == "Ms. Henry" {
+            for item in henry {
+                if time == item {
+                    availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+                    break
+                } else {
+                    availabilityLabel.text = "\(teacher) is not available \(time)."
+                }
+            }
+        } else if teacher == "Mr. Raisher" {
+            for item in raisher {
+                if time == item {
+                    availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+                    break
+                } else {
+                    availabilityLabel.text = "\(teacher) is not available \(time)."
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
