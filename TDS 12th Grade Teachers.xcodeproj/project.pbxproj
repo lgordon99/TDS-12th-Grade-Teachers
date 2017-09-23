@@ -13,6 +13,8 @@
 		745A80271F1F0D210011152A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 745A80261F1F0D210011152A /* Assets.xcassets */; };
 		745A802A1F1F0D210011152A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 745A80281F1F0D210011152A /* LaunchScreen.storyboard */; };
 		745A80341F1F0EB30011152A /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A80331F1F0EB30011152A /* GradientView.swift */; };
+		7471C4591F7448C100CA542E /* Teacher Schedules.csv in Resources */ = {isa = PBXBuildFile; fileRef = 7471C4581F7448C100CA542E /* Teacher Schedules.csv */; };
+		7471C45B1F76E9AD00CA542E /* Teacher Names.csv in Resources */ = {isa = PBXBuildFile; fileRef = 7471C45A1F76E9AD00CA542E /* Teacher Names.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		745A80291F1F0D210011152A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		745A802B1F1F0D210011152A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		745A80331F1F0EB30011152A /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		7471C4581F7448C100CA542E /* Teacher Schedules.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Teacher Schedules.csv"; path = "TDS 12th Grade Teachers/Teacher Schedules.csv"; sourceTree = "<group>"; };
+		7471C45A1F76E9AD00CA542E /* Teacher Names.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = "Teacher Names.csv"; path = "TDS 12th Grade Teachers/Teacher Names.csv"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +44,8 @@
 		745A80131F1F0D210011152A = {
 			isa = PBXGroup;
 			children = (
+				7471C45A1F76E9AD00CA542E /* Teacher Names.csv */,
+				7471C4581F7448C100CA542E /* Teacher Schedules.csv */,
 				745A801E1F1F0D210011152A /* TDS 12th Grade Teachers */,
 				745A801D1F1F0D210011152A /* Products */,
 			);
@@ -127,6 +133,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7471C45B1F76E9AD00CA542E /* Teacher Names.csv in Resources */,
+				7471C4591F7448C100CA542E /* Teacher Schedules.csv in Resources */,
 				745A802A1F1F0D210011152A /* LaunchScreen.storyboard in Resources */,
 				745A80271F1F0D210011152A /* Assets.xcassets in Resources */,
 				745A80251F1F0D210011152A /* Main.storyboard in Resources */,
@@ -308,6 +316,7 @@
 				745A80301F1F0D210011152A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
