@@ -307,7 +307,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
         
         let startIndex = csvData.index(csvData.startIndex, offsetBy: startPos)
-        let endIndex = csvData.index(csvData.startIndex, offsetBy: startPos + teacherLN.characters.count + 250)
+        let endIndex = csvData.index(csvData.startIndex, offsetBy: startPos + teacherLN.characters.count + 220)
         let range = startIndex..<endIndex
         let teacherData = String(csvData.substring(with: range))!
         let aIndex = teacherData.distance(from: teacherData.startIndex, to: teacherData.index(of: "A")!)
