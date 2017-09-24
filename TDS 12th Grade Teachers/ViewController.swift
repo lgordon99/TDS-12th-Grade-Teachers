@@ -31,7 +31,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var day = "A"
     var period = "1"
     var time = "A1"
-    var teacher = "Ms. Ioppolo"
+    var teacher = "Anderson"
     var screenWidth: CGFloat = 0
     var screenHeight: CGFloat = 0
     var csvData = ""
@@ -103,7 +103,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         titleLabel.isHidden = false
         titleLabel.frame = CGRect(x: screenWidth/9, y: screenHeight/30, width: 7 * screenWidth/9, height: 0.07 * screenHeight)
         titleLabel.backgroundColor = UIColor.red
-        titleLabel.text = "12th Grade Teachers"
+        titleLabel.text = "High School Teachers"
         titleLabel.textAlignment = NSTextAlignment.center
         titleLabel.highlightedTextColor = UIColor.white
         titleLabel.isHighlighted = true
@@ -316,7 +316,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         var startPos = 0
         var endPos = 0
         
-        teacherLN = String(teacher.dropFirst(4))
+        teacherLN = teacher
+        print(teacherLN)
  
         if let range = csvData.range(of: teacherLN){
              startPos = csvData.distance(from: csvData.startIndex, to: range.lowerBound)
@@ -328,6 +329,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let range = startIndex..<endIndex
         
         let teacherData = String(csvData.substring(with: range))!
+        //print(teacherData)
 
         let aIndex = teacherData.distance(from: teacherData.startIndex, to: teacherData.index(of: "A")!)
         //print(aIndex)
@@ -337,7 +339,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         let quoteIndex = justSchedule.distance(from: justSchedule.startIndex, to: justSchedule.index(of: "\"")!)
         let withoutLetters = String(justSchedule.dropFirst(quoteIndex))
-        print(withoutLetters)
+        //print(withoutLetters)
         
         let free = getFree(schedule: withoutLetters, day: day, period: period)
         
@@ -364,12 +366,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         let commaNumber = 10 * (periodNumber! - 1) + (dayNumber! - 1)
         let charIndex = indexes[commaNumber]
-        print(indexes)
-        print(commaNumber)
-        print(charIndex)
+        //print(indexes)
+        //print(commaNumber)
+        //print(charIndex)
         let ind = schedule.index(schedule.startIndex, offsetBy: charIndex + 1)
         let char = String(schedule[ind])
-        print("char = " + char)
+        //print("char = " + char)
         
         if char == "," {
             return true
