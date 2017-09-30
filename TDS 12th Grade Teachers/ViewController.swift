@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     //MARK: Label Declarations
     let titleLabel = UILabel()
     let dayLabel = UILabel()
@@ -30,11 +30,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var day = "A"
     var period = "1"
     var time = "A1"
-    var teacher = "Anderson"
+    var teacher = "Anderson, Dawn"
     var screenWidth: CGFloat = 0
     var screenHeight: CGFloat = 0
     var csvData = ""
     var teacherCSV = ""
+    var teacherArray: [String] = []
+    var newTeachers: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +55,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             teacherCSV.replaceSubrange(rangeToReplace, with: " ")
         }
         
-        var teacherArray = teacherCSV.components(separatedBy: " ")
+        teacherArray = teacherCSV.components(separatedBy: " ")
         
         var i = 0
         for element in teacherArray {
@@ -65,20 +67,19 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
         
         for teacher in teacherArray {
-            if teacher.contains(",") {
-                let newTeacher = teacher.substring(to: teacher.index(of: ",")!)
-                teacherArray.remove(at: teacherArray.index(of: teacher)!)
-                teacherArray.append(newTeacher)
-            }
+            var newT = teacher
+            newT.insert(" ", at: teacher.index(after: teacher.index(of: ",")!))
+            newTeachers.append(newT)
         }
         
-        teachers = teacherArray
+        teachers = newTeachers
         
         screenWidth = view.frame.size.width
         screenHeight = view.frame.size.height
         
         self.teacherPicker.delegate = self
         self.teacherPicker.dataSource = self
+        self.searchTF.delegate = self
     
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         
@@ -119,7 +120,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         daySlider.minimumValue = 1
         daySlider.maximumValue = 10
         daySlider.minimumTrackTintColor = UIColor.blue
-        daySlider.maximumTrackTintColor = UIColor.magenta
+        daySlider.maximumTrackTintColor = UIColor(red: 34/255, green: 139/255, blue: 34/255, alpha: 1)
         daySlider.thumbTintColor = UIColor.white
         daySlider.isContinuous = true
         daySlider.isEnabled = true
@@ -148,7 +149,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         periodSlider.minimumValue = 1
         periodSlider.maximumValue = 8
         periodSlider.minimumTrackTintColor = UIColor.blue
-        periodSlider.maximumTrackTintColor = UIColor.magenta
+        periodSlider.maximumTrackTintColor = UIColor(red: 34/255, green: 139/255, blue: 34/255, alpha: 1)
         periodSlider.thumbTintColor = UIColor.white
         periodSlider.isContinuous = true
         periodSlider.isEnabled = true
@@ -160,7 +161,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         searchTF.isHidden = false
         searchTF.isEnabled = true
         searchTF.frame = CGRect(x: 2 * screenWidth/10, y: 7 * screenHeight/20, width: 6 * screenWidth/10, height: 0.06 * screenHeight)
-        searchTF.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 0.05 * screenWidth)!])
+        searchTF.attributedPlaceholder = NSAttributedString(string: "Enter Last Name", attributes: [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 0.05 * screenWidth)!])
         searchTF.textAlignment = NSTextAlignment.center
         searchTF.textColor = UIColor.white
         searchTF.backgroundColor = UIColor.black
@@ -181,7 +182,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         availabilityLabel.isHidden = false
         availabilityLabel.frame = CGRect(x: screenWidth/10, y: 14 * screenHeight / 20, width: 8 * screenWidth/10, height: 5 * screenHeight/20)
         availabilityLabel.backgroundColor = UIColor.blue
-        availabilityLabel.text = "Ms. Ioppolo is available to meet A1!"
+        availabilityLabel.text = "Community time periods are counted as not free."
         availabilityLabel.textAlignment = NSTextAlignment.center
         availabilityLabel.highlightedTextColor = UIColor.white
         availabilityLabel.numberOfLines = 0
@@ -229,6 +230,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         view.endEditing(true)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTF.resignFirstResponder()
+        return true
+    }
+    
     func daySliderChanged(_sender: AnyObject){
         let currentValue = Int(daySlider.value)
         let numbersToLetters: [Int: String] = [1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 9: "I", 10: "J"]
@@ -261,9 +267,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func searchTFAction(_sender: AnyObject){
         let input = searchTF.text?.lowercased()
         for tea in teachers {
-            let nameIndex = tea.lowercased().startIndex
-            
-            if (input?.contains(tea.lowercased().substring(from: nameIndex)))! {
+            let tempT = tea.substring(to: tea.index(of: ",")!).lowercased()
+            if tempT == input {
                 teacher = tea
             }
         }
@@ -299,8 +304,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         var teacherLN = ""
         var startPos = 0
-        
+
         teacherLN = teacher
+        
+        if teacherLN.contains(" ") {
+            teacherLN.remove(at: teacherLN.index(of: " ")!)
+        }
  
         if let range = csvData.range(of: teacherLN){
              startPos = csvData.distance(from: csvData.startIndex, to: range.lowerBound)
@@ -317,7 +326,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let free = getFree(schedule: withoutLetters, day: day, period: period)
         
         if free {
-            availabilityLabel.text = "\(teacher) is available to meet \(time)!"
+            availabilityLabel.text = "\(teacher) is available \(time)!"
         } else {
             availabilityLabel.text = "\(teacher) is not available \(time)."
         }
