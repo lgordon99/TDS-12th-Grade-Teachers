@@ -94,7 +94,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         titleLabel.highlightedTextColor = UIColor.white
         titleLabel.isHighlighted = true
         titleLabel.layer.masksToBounds = true
-        titleLabel.layer.cornerRadius = 0.1 * titleLabel.bounds.size.width
+        titleLabel.layer.cornerRadius = 0.05 * titleLabel.bounds.size.width
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 0.07 * screenWidth)
         
         view.addSubview(titleLabel)
@@ -166,7 +166,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         searchTF.textColor = UIColor.white
         searchTF.backgroundColor = UIColor.black
         searchTF.layer.masksToBounds = true
-        searchTF.layer.cornerRadius = 0.1 * searchTF.bounds.size.width
+        searchTF.layer.cornerRadius = 0.05 * searchTF.bounds.size.width
         searchTF.addTarget(self, action: #selector(searchTFAction(_sender:)), for: .editingDidEnd)
         
         view.addSubview(searchTF)
@@ -182,7 +182,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         availabilityLabel.isHidden = false
         availabilityLabel.frame = CGRect(x: screenWidth/10, y: 14 * screenHeight / 20, width: 8 * screenWidth/10, height: 5 * screenHeight/20)
         availabilityLabel.backgroundColor = UIColor.blue
-        availabilityLabel.text = "Community time periods are counted as not free."
+        availabilityLabel.text = "Community time periods are not counted as free."
         availabilityLabel.textAlignment = NSTextAlignment.center
         availabilityLabel.highlightedTextColor = UIColor.white
         availabilityLabel.numberOfLines = 0
