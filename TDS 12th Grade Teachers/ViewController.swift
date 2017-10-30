@@ -161,7 +161,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         searchTF.isHidden = false
         searchTF.isEnabled = true
         searchTF.frame = CGRect(x: 2 * screenWidth/10, y: 7 * screenHeight/20, width: 6 * screenWidth/10, height: 0.06 * screenHeight)
-        searchTF.attributedPlaceholder = NSAttributedString(string: "Enter Last Name", attributes: [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 0.05 * screenWidth)!])
+        searchTF.attributedPlaceholder = NSAttributedString(string: "Enter Last Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray, NSAttributedStringKey.font: UIFont(name: "HelveticaNeue-Bold", size: 0.05 * screenWidth)!])
         searchTF.textAlignment = NSTextAlignment.center
         searchTF.textColor = UIColor.white
         searchTF.backgroundColor = UIColor.black
@@ -226,7 +226,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return result
     }
     
-    func dismissKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
@@ -235,7 +235,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return true
     }
     
-    func daySliderChanged(_sender: AnyObject){
+    @objc func daySliderChanged(_sender: AnyObject){
         let currentValue = Int(daySlider.value)
         let numbersToLetters: [Int: String] = [1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G", 8: "H", 9: "I", 10: "J"]
         
@@ -245,7 +245,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         updateText()
     }
     
-    func periodSliderChanged(_sender: AnyObject){
+    @objc func periodSliderChanged(_sender: AnyObject){
         if Int(periodSlider.value) < 5 {
             let currentValue = Int(periodSlider.value)
             periodLabel.text = "Period: \(currentValue)"
@@ -264,10 +264,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         updateText()
     }
     
-    func searchTFAction(_sender: AnyObject){
+    @objc func searchTFAction(_sender: AnyObject){
         let input = searchTF.text?.lowercased()
         for tea in teachers {
-            let tempT = tea.substring(to: tea.index(of: ",")!).lowercased()
+            let tempT = String(tea[..<tea.index(of: ",")!].lowercased())
             if tempT == input {
                 teacher = tea
             }
@@ -289,7 +289,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        return NSAttributedString(string: teachers[row], attributes: [NSFontAttributeName:UIFont(name: "Avenir", size: 15.0)!,NSForegroundColorAttributeName:UIColor.cyan])
+        return NSAttributedString(string: teachers[row], attributes: [NSAttributedStringKey.font:UIFont(name: "Avenir", size: 15.0)!,NSAttributedStringKey.foregroundColor:UIColor.cyan])
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -305,7 +305,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         var teacherLN = ""
         var startPos = 0
 
-        teacherLN = teacher
+        teacherLN = teacher.lowercased()
         
         if teacherLN.contains(" ") {
             teacherLN.remove(at: teacherLN.index(of: " ")!)
@@ -318,7 +318,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let startIndex = csvData.index(csvData.startIndex, offsetBy: startPos)
         let endIndex = csvData.index(csvData.startIndex, offsetBy: startPos + teacherLN.characters.count + 220)
         let range = startIndex..<endIndex
-        let teacherData = String(csvData.substring(with: range))!
+        let teacherData = String(csvData[range])
         let aIndex = teacherData.distance(from: teacherData.startIndex, to: teacherData.index(of: "A")!)
         let justSchedule = String(teacherData.dropFirst(aIndex))
         let quoteIndex = justSchedule.distance(from: justSchedule.startIndex, to: justSchedule.index(of: "\"")!)
@@ -327,8 +327,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         if free {
             availabilityLabel.text = "\(teacher) is available \(time)!"
+            availabilityLabel.backgroundColor = UIColor(red: 50/255, green: 205/255, blue: 50/255, alpha: 1)
         } else {
             availabilityLabel.text = "\(teacher) is not available \(time)."
+            availabilityLabel.backgroundColor = UIColor.blue
         }
     }
     
@@ -352,7 +354,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let ind = schedule.index(schedule.startIndex, offsetBy: charIndex + 1)
         let char = String(schedule[ind])
         
-        if char == "," {
+        if char == "," || char == "\n" {
             return true
         } else {
             return false
